@@ -629,7 +629,16 @@ public class WifiIotPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
     }
 
     JSONArray handleNetworkScanResult() {
-        List<ScanResult> results = moWiFi.getScanResults();
+        List<ScanResult> results = new ArrayList<ScanResult>();
+        try {
+            if (moWiFi.getScanResults() != null) {
+                results = moWiFi.getScanResults();
+            } else {
+                results = new ArrayList<ScanResult>();
+            }
+        } catch (Exception e) {
+            results = new ArrayList<ScanResult>();
+        }
         JSONArray wifiArray = new JSONArray();
 
         try {
